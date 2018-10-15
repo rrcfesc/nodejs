@@ -21,13 +21,12 @@ RUN apt-get install -y gcc g++ apt-utils python-pip make libxml2-dev libxslt-dev
     build-essential libsqlite3-dev xfonts-75dpi zlib1g-dev libncurses5-dev libgdbm-dev libbz2-dev libreadline-gplv2-dev libssl-dev libdb-dev
 RUN curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh
 RUN chmod +x nodesource_setup.sh && ./nodesource_setup.sh && rm nodesource_setup.sh
-RUN apt-get install nodejs vim yarn -y
+RUN apt-get install nodejs bcrypt vim yarn -y
 ADD extraFiles/entrypoint.sh /usr/local/bin/entrypoint.sh
 ADD extraFiles/supervisor.conf /etc/supervisord.conf
 RUN chmod +x /usr/local/bin/entrypoint.sh
 RUN python2 -m pip install supervisor
-RUN npm install -g sass less grunt node-gyp
-
+RUN npm install -g sass less  grunt node-gyp
 RUN useradd  -m -d /home/${USER} -s /bin/bash ${USER}
 RUN passwd ${USER} -d
 RUN git clone --depth=1 --single-branch https://github.com/spf13/spf13-vim.git /tmp/spf13-vim
